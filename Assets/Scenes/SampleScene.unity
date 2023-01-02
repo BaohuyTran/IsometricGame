@@ -316,7 +316,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -353,6 +353,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7862011802125639166, guid: 27666e6076431814592346118ecdf328, type: 3}
   m_PrefabInstance: {fileID: 7862011801788029689}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1695317961 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2178219406514493828, guid: 27666e6076431814592346118ecdf328, type: 3}
+  m_PrefabInstance: {fileID: 7862011801788029689}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1695317963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695317961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcc71e05ea3b0d441a721508f46fab33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  isRotate: 1
 --- !u!1 &1916789688
 GameObject:
   m_ObjectHideFlags: 0
@@ -490,6 +509,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5110403718863046381, guid: 27666e6076431814592346118ecdf328, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fffc089bb9580824387fd4fae972adef, type: 2}
+    - target: {fileID: 5110403718863046381, guid: 27666e6076431814592346118ecdf328, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7862011802125639166, guid: 27666e6076431814592346118ecdf328, type: 3}
       propertyPath: m_RootOrder
       value: 2

@@ -6,6 +6,7 @@ public class PlayerLocomotion : MonoBehaviour
 {
     Transform cameraObject;
     InputHandler inputHandler;
+    AnimatorHandler animatorHandler;
 
     Vector3 moveDiretcion;
     Vector3 targetDirrection;
@@ -21,14 +22,21 @@ public class PlayerLocomotion : MonoBehaviour
     {
         cameraObject = Camera.main.transform;
         inputHandler = GetComponent<InputHandler>();
+        animatorHandler = GetComponentInChildren<AnimatorHandler>();
         rigidbody = GetComponent<Rigidbody>();
         myTransform = transform;
+        animatorHandler.Initialize();
     }
 
     #region Movement
     Vector3 normalVector; //this var may have more value in the future, let's see
     public void HandleMovement(float delta)
     {
+        if(animatorHandler.isRotate)
+        {
+            HandleRotation(delta);
+        }
+
         float speed = movementSpeed;
 
         moveDiretcion = cameraObject.forward * inputHandler.vertical;
@@ -40,6 +48,8 @@ public class PlayerLocomotion : MonoBehaviour
 
         Vector3 projectedVelocity = Vector3.ProjectOnPlane(moveDiretcion, normalVector);
         rigidbody.velocity = projectedVelocity;
+
+        animatorHandler.UpdateAnimatorValues(inputHandler.moveAmount, 0);
     }
 
     public void HandleRotation(float delta)
@@ -60,6 +70,29 @@ public class PlayerLocomotion : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(targetDirrection);
 
         myTransform.rotation = Quaternion.Slerp(myTransform.rotation, targetRotation, speed * delta);
+    }
+
+    public void HandleRolling(float delta)
+    {
+        if (animatorHandler.anim.GetBool("isInteracting"))
+        {
+            return;
+        }
+
+        if(inputHandler.rollFlag)
+        {
+            moveDiretcion = cameraObject.forward * inputHandler.vertical;
+            moveDiretcion += cameraObject.right * inputHandler.horizontal;
+
+            if(inputHandler.moveAmount == 0)
+            {
+                moveDiretcion = myTransform.forward;
+            }
+
+            animatorHandler.PlayTargetAnimation("Rolling", true);
+            moveDiretcion.y = 0;
+            myTransform.rotation = Quaternion.LookRotation(moveDiretcion);
+        }
     }
     #endregion
 }

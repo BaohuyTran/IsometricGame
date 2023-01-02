@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     CameraHandler cameraHandler;
     PlayerLocomotion playerLocomotion;
 
+    public bool isInteracting;
     private void Awake()
     {
         cameraHandler = CameraHandler.singleton;
@@ -17,17 +18,20 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         inputHandler = GetComponent<InputHandler>();
-        anim = GetComponentInChildren<Animator>();//not yet
+        anim = GetComponentInChildren<Animator>();
         playerLocomotion = GetComponent<PlayerLocomotion>();
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         float delta = Time.deltaTime;
+
+        isInteracting = anim.GetBool("isInteracting");
+
         inputHandler.TickInput(delta);
         playerLocomotion.HandleMovement(delta);
-        playerLocomotion.HandleRotation(delta);
+        playerLocomotion.HandleRolling(delta);
     }
 
     private void FixedUpdate()
@@ -42,6 +46,6 @@ public class PlayerManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        
+        inputHandler.rollFlag = false;
     }
 }
